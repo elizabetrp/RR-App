@@ -1,0 +1,43 @@
+* {
+  padding: 0;
+  margin: 0
+}
+.App {
+  text-align: left;
+  border-left: 100px;
+  border-right: 100px;
+  border-top: 30px;
+  border-bottom: 5px;
+  border-style: solid;
+  -webkit-border-image:
+    -webkit-gradient(linear, 0 100%, 0 0, from(purple), to(rgba(0, 0, 0, 0))) 1 100%;
+  -webkit-border-image:
+    -webkit-linear-gradient(bottom, purple, rgba(0, 0, 0, 0)) 1 100%;
+  -moz-border-image:
+    -moz-linear-gradient(bottom, purple, rgba(0, 0, 0, 0)) 1 100%;
+  -o-border-image:
+    -o-linear-gradient(bottom, purple, rgba(0, 0, 0, 0)) 1 100%;
+  border-image:
+    linear-gradient(to top, purple, rgba(0, 0, 0, 0)) 1 100%;
+}
+.table {
+  height: auto;
+  padding: 10px;
+  color: dimgrey;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif
+}
+#title::first-line {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+.loading {
+  text-align: center;
+}
+.names {
+  padding-top: 20px;
+}
+.item {
+  display: block;
+  overflow-y: auto;
+}
