@@ -8,18 +8,6 @@ class Rooms extends React.Component {
   }
 
   componentDidMount() {
-    // fetch('https://idaas.iam.ibm.com/idaas/oidc/endpoint/default/token', {
-    //   method: 'POST',
-    //   mode: 'no-cors',
-    //   headers: {
-    //     'Authorization': 'Basic dGlsaWV2YUBiZy5pYm0uY29tOnRlc3Q=',
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   },
-    //   body: JSON.stringify({
-    //     reqBody: 'grant_type=client_credentials&scope=openid'
-    //   })
-    // })
 
     fetch("https://rr.devlab.ibm.com/ResolutionRoomsBackend/api/rest/rooms/", {
       method: 'GET',
@@ -38,35 +26,16 @@ class Rooms extends React.Component {
           }
       })
     }.bind(this));
-
-    fetch("https://rr.devlab.ibm.com/ResolutionRoomsBackend/api/rest/nomenclatures/", {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Basic dGlsaWV2YUBiZy5pYm0uY29tOnRlc3Q=',
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      return response.json();
-    })
-    .then(function(info) {
-      this.setState(function() {
-          return {
-            nomenclatures: info
-          }
-      })
-    }.bind(this));
   }
 
   render(){
-
     if(!this.state.roomData) {
       return (
           <p className="table loading">Loading...</p>
       )}
     return (
         <div className="table">
-          <h1 id="title">List of rooms</h1>
+          <h1>List of rooms</h1>
           <div className="info">{this.state.roomData.map(function(item, i){
             if(item.roomType === 2){
               item.topic = "Private Room"
@@ -81,11 +50,15 @@ class Rooms extends React.Component {
             }
               return(
                 <span key={i} className="item">
-                  <span>Name of room: </span>
-                  {item.topic + ", "}
-                  <span>Type: </span>
-                  {item.roomType + ", Date: "}
-                  <Timestamp time={(item.createTms)/1000} format="date" />
+                  <span className="topic">
+                    {item.topic + ", "}
+                  </span>
+                  <span className="type">
+                    {item.roomType + ", "}
+                  </span>
+                  <span className="date">
+                    <Timestamp time={(item.createTms)/1000} format="date" />
+                  </span>
                 </span>
               )
             })}

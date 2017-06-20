@@ -26,11 +26,6 @@
   padding: 10px;
   color: dimgrey;
 }
-/*#title::first-line {
-  text-align: center;
-  font-weight: bold;
-  font-size: 20px;
-}*/
 .loading {
   text-align: center;
 }
@@ -41,4 +36,13 @@
 .item {
   display: block;
   overflow-y: auto;
+}
+.type:before {
+  content: "Type: "
+}
+.topic:before {
+  content: "Name: "
+}
+.date:before {
+  content: "Date: "
 }
