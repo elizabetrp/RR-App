@@ -1,4 +1,5 @@
 var React = require('react');
+var Timestamp = require('react-timestamp');
 
 class Rooms extends React.Component {
   constructor(props) {
@@ -28,9 +29,6 @@ class Rooms extends React.Component {
       }
     })
     .then(response => {
-      if (!response.ok) {
-        throw Error("Network request failed")
-      }
       return response.json();
     })
     .then(function(data) {
@@ -49,9 +47,6 @@ class Rooms extends React.Component {
       }
     })
     .then(response => {
-      if (!response.ok) {
-        throw Error("Network request failed")
-      }
       return response.json();
     })
     .then(function(info) {
@@ -70,25 +65,30 @@ class Rooms extends React.Component {
           <p className="table loading">Loading...</p>
       )}
     return (
-        <div className="table" id="title">List of rooms
-          <div className="names">{this.state.roomData.map(function(item, i){
-            if(typeof(JSON.stringify(item.topic)) === "undefined"){
-              return ""
+        <div className="table">
+          <h1 id="title">List of rooms</h1>
+          <div className="info">{this.state.roomData.map(function(item, i){
+            if(item.roomType === 2){
+              item.topic = "Private Room"
+              item.roomType = "Private"
+            }
+            else if(item.roomType === 3) {
+              item.topic = "Confidential Room"
+              item.roomType = "Confidential"
+            }
+            else {
+              item.roomType = "Public"
             }
               return(
                 <span key={i} className="item">
-                  {JSON.stringify(item.topic) + ", type: " + JSON.stringify(item.roomType)}
+                  <span>Name of room: </span>
+                  {item.topic + ", "}
+                  <span>Type: </span>
+                  {item.roomType + ", Date: "}
+                  <Timestamp time={(item.createTms)/1000} format="date" />
                 </span>
               )
-          })}
-          {this.state.nomenclatures.map(function(item, i){
-              return(
-                <span key={i} className="item">
-                  {JSON.stringify(item)}
-                </span>
-              )
-          })
-        }
+            })}
           </div>
         </div>
     )
