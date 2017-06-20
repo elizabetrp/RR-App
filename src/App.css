@@ -40,8 +40,14 @@
 .type:before {
   content: "Type: "
 }
+.type:after {
+  content: ", "
+}
 .topic:before {
   content: "Name: "
+}
+.topic:after {
+  content: ", "
 }
 .date:before {
   content: "Date: "

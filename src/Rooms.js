@@ -51,10 +51,10 @@ class Rooms extends React.Component {
               return(
                 <span key={i} className="item">
                   <span className="topic">
-                    {item.topic + ", "}
+                    {item.topic}
                   </span>
                   <span className="type">
-                    {item.roomType + ", "}
+                    {item.roomType}
                   </span>
                   <span className="date">
                     <Timestamp time={(item.createTms)/1000} format="date" />
