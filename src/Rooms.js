@@ -1,7 +1,15 @@
 var React = require('react');
 var Timestamp = require('react-timestamp');
+// var createFragment = require('react-addons-create-fragment');
 
 class Rooms extends React.Component {
+
+  sortRooms(rooms) {
+    rooms.sort((a, b) =>
+      new Date(b.createTms) - new Date(a.createTms));
+      return rooms;
+  }
+
   constructor(props) {
     super(props);
     this.state = {}
@@ -20,6 +28,7 @@ class Rooms extends React.Component {
       return response.json();
     })
     .then(function(data) {
+      this.sortRooms(data);
       this.setState(function() {
           return {
             roomData: data
@@ -36,19 +45,21 @@ class Rooms extends React.Component {
     return (
         <div className="table">
           <h1>List of rooms</h1>
-          <div className="info">{this.state.roomData.map(function(item, i){
-            if(item.roomType === 2){
-              item.topic = "Private Room"
-              item.roomType = "Private"
-            }
-            else if(item.roomType === 3) {
-              item.topic = "Confidential Room"
-              item.roomType = "Confidential"
-            }
-            else {
-              item.roomType = "Public"
-            }
-              return(
+          <div className="info">
+
+            {this.state.roomData.map(function(item, i){
+              if(item.roomType === 2){
+                item.topic = "Private Room"
+                item.roomType = "Private"
+              }
+              else if(item.roomType === 3) {
+                item.topic = "Confidential Room"
+                item.roomType = "Confidential"
+              }
+              else {
+                item.roomType = "Public"
+              }
+              return (
                 <span key={i} className="item">
                   <span className="topic">
                     {item.topic}
@@ -57,7 +68,7 @@ class Rooms extends React.Component {
                     {item.roomType}
                   </span>
                   <span className="date">
-                    <Timestamp time={(item.createTms)/1000} format="date" />
+                    {<Timestamp time={(item.createTms)/1000} format="date" />}
                   </span>
                 </span>
               )

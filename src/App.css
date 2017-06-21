@@ -38,17 +38,20 @@
   overflow-y: auto;
 }
 .type:before {
-  content: "Type: "
+  content: "Type: ";
+  font-weight: bold;
 }
 .type:after {
-  content: ", "
+  content: ", ";
 }
 .topic:before {
-  content: "Name: "
+  content: "Name: ";
+  font-weight: bold;
 }
 .topic:after {
-  content: ", "
+  content: ", ";
 }
 .date:before {
-  content: "Date: "
+  content: "Date: ";
+  font-weight: bold;
 }
