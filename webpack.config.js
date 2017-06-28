@@ -1,6 +1,5 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
 var path = require('path');
 
 var config = {
@@ -11,6 +10,10 @@ var config = {
     publicPath: '/'
   },
   module: {
+    loaders: [
+      { test: /\.js$/ },
+      { loaders: ['react-hot', 'babel', 'eslint'] }
+    ],
     rules: [
       { test: /\.(js)$/, use: 'babel-loader' },
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ]}

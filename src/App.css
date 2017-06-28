@@ -37,21 +37,3 @@
   display: block;
   overflow-y: auto;
 }
-.type:before {
-  content: "Type: ";
-  font-weight: bold;
-}
-.type:after {
-  content: ", ";
-}
-.topic:before {
-  content: "Name: ";
-  font-weight: bold;
-}
-.topic:after {
-  content: ", ";
-}
-.date:before {
-  content: "Date: ";
-  font-weight: bold;
-}
