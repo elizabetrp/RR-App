@@ -1,69 +1,58 @@
 var React = require('react');
-var Timestamp = require('react-timestamp');
+var authorization = require("./authorization_header.json");
+var Type = require("./Type.js");
 
 class Rooms extends React.Component {
+
+
+  sortRooms(rooms) {
+    rooms.sort((a, b) =>
+      new Date(b.createTms) - new Date(a.createTms));
+      return rooms;
+  }
+
   constructor(props) {
     super(props);
-    this.state = {}
+
+    this.state = {};
+
+    this.sortRooms = this.sortRooms.bind(this);
   }
 
   componentDidMount() {
 
-    fetch("https://rr.devlab.ibm.com/ResolutionRoomsBackend/api/rest/rooms/", {
+    fetch(authorization.path, {
       method: 'GET',
       headers: {
-        'Authorization': 'Basic dGlsaWV2YUBiZy5pYm0uY29tOnRlc3Q=',
-        'Accept': 'application/json'
+        'Authorization': authorization.header,
+        'Accept': authorization.accept
       }
     })
     .then(response => {
       return response.json();
     })
     .then(function(data) {
-      this.setState(function() {
-          return {
-            roomData: data
-          }
-      })
+      this.sortRooms(data);
+      this.setState(function(){
+        return {
+          roomData: data
+        }
+      });
     }.bind(this));
   }
 
   render(){
     if(!this.state.roomData) {
       return (
-          <p className="table loading">Loading...</p>
+        <p className="table loading">Loading...</p>
       )}
     return (
-        <div className="table">
-          <h1>List of rooms</h1>
-          <div className="info">{this.state.roomData.map(function(item, i){
-            if(item.roomType === 2){
-              item.topic = "Private Room"
-              item.roomType = "Private"
-            }
-            else if(item.roomType === 3) {
-              item.topic = "Confidential Room"
-              item.roomType = "Confidential"
-            }
-            else {
-              item.roomType = "Public"
-            }
-              return(
-                <span key={i} className="item">
-                  <span className="topic">
-                    {item.topic}
-                  </span>
-                  <span className="type">
-                    {item.roomType}
-                  </span>
-                  <span className="date">
-                    <Timestamp time={(item.createTms)/1000} format="date" />
-                  </span>
-                </span>
-              )
-            })}
-          </div>
+      <div className="table">
+        <h1>List of rooms</h1>
+        <div className="info">
+          <Type roomData={this.state.roomData}/>
         </div>
+      </div>
     )
   }
 }
